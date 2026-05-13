@@ -1,11 +1,2 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  output: 'export',
-  images: { unoptimized: true },
-  basePath: '/AoTW-Portfolio',
-  trailingSlash: true,
-  devIndicators: false,
-};
-
+const nextConfig = {};
 export default nextConfig;
