@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+:root {
+  /* Type */
+  --font-serif: "Newsreader", serif;
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  /* Color — warm neutral system */
+  --bg: #FAFAF7;
+  --ink: #1A1611;
+  --ink-soft: #6B6358;
+  --hairline: rgba(26, 22, 17, 0.08);
+  --tile-fill: #FFFFFF;
+  --overscroll: #A8322D;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fade: 700ms;
+  --duration-quick: 200ms;
+  --stagger: 70ms;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+}
+
+html,
+body {
+  /* Prevent the browser's native rubber-band so it doesn't compound with our
+     custom top overscroll. */
+  overscroll-behavior-y: none;
+}
+
+body {
+  color: var(--ink-soft);
+  font-family: var(--font-sans), "Noto Serif Devanagari", sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  /* Normalize x-height across the Geist-sans / Newsreader-italic mix in the
+     bio so inline italic spans don't push line-boxes taller. Tune between
+     0.45 and 0.55 if italic mentions read too small or too large. */
+  font-size-adjust: 0.5;
+}
+
+.bio-paragraph {
+  /* Pinned pixel line-height (was 1.55 unitless = 26.35px). Pixel values are
+     immune to font-metrics rounding drift between mixed sans/serif spans. */
+  line-height: 27px;
+  position: relative;
+}
+
+.bio-italic {
+  line-height: 27px;
+  vertical-align: 0;
+  /* If this orphans long italic phrases ("The New York Times" /
+     "द न्यूयॉर्क टाइम्स") onto their own line, switch to display: inline. */
+  display: inline-block;
+}
+
+.bio-italic::selection {
+  background: rgba(26, 22, 17, 0.12);
+  color: var(--ink);
+}
+
+.bio-italic::-moz-selection {
+  background: rgba(26, 22, 17, 0.12);
+  color: var(--ink);
+}
+
+.hero-name {
+  font-family: var(--font-serif), "Noto Serif Devanagari", serif;
+  font-variation-settings: "opsz" 36;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(8px);
+  transition: opacity var(--duration-fade) var(--ease-out-expo),
+    transform var(--duration-fade) var(--ease-out-expo),
+    filter var(--duration-fade) var(--ease-out-expo);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+::selection {
+  background: rgba(26, 22, 17, 0.12);
+  color: var(--ink);
+}
+
+::-moz-selection {
+  background: rgba(26, 22, 17, 0.12);
+  color: var(--ink);
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.social-arrow {
+  margin-left: 2px;
+  opacity: 0;
+  transition: opacity 80ms ease-in;
+  display: inline-block;
+}
+
+.social-link:hover .social-arrow,
+.social-link:focus-visible .social-arrow {
+  opacity: 1;
+  transition: opacity 150ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-arrow {
+    transition: none;
+  }
+  .social-link:hover .social-arrow,
+  .social-link:focus-visible .social-arrow {
+    transition: none;
+  }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 15px;
+  }
+
+  .hero-name {
+    font-size: 27px;
+  }
+}
