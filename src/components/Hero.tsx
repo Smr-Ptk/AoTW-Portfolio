@@ -1,6 +1,5 @@
 import BlurFadeIn from "@/components/BlurFadeIn";
 import { SOCIALS } from "@/lib/constants";
-import type { Lang } from "@/app/page";
 
 type ItProps = {
   children: React.ReactNode;
@@ -9,73 +8,11 @@ type ItProps = {
 function It({ children }: ItProps) {
   return (
     <span
-      style={{ fontFamily: 'var(--font-serif), "Noto Serif Devanagari", serif' }}
+      style={{ fontFamily: 'var(--font-serif), serif' }}
       className="bio-italic italic tracking-[-0.01em] text-[var(--ink)]"
     >
       {children}
     </span>
-  );
-}
-
-function BioEn() {
-  return (
-    <>
-      <BlurFadeIn delay={80}>
-        <p className="bio-paragraph mt-6">
-          I&apos;m a designer and developer based in New York. This summer
-          I&apos;m joining{" "}
-          <It>The New York Times</It>
-          {" "}as a Product Design Intern. Right now I&apos;m finishing my
-          Master&apos;s in Integrated Product Design at UPenn. Before this I
-          designed for brands such as <It>HP</It>, <It>Kodak</It>, and{" "}
-          <It>Saris</It> at C+A Global. I also founded{" "}
-          <It>Creative X</It> at Rutgers, a design community for student
-          creatives. On the side I consult for clothing brands, dance studios,
-          authors, and non-profits.
-        </p>
-      </BlurFadeIn>
-
-      <BlurFadeIn delay={160}>
-        <p className="bio-paragraph mt-4">
-          Outside of work I&apos;m interested in powerlifting, history and
-          learning languages.
-        </p>
-      </BlurFadeIn>
-
-      <BlurFadeIn delay={240}>
-        <Socials />
-      </BlurFadeIn>
-    </>
-  );
-}
-
-function BioHi() {
-  return (
-    <>
-      <BlurFadeIn delay={80}>
-        <p className="bio-paragraph mt-6">
-          मैं न्यूयॉर्क में स्थित एक डिज़ाइनर और डेवलपर हूं। इस गर्मी में मैं{" "}
-          <It>द न्यूयॉर्क टाइम्स</It>
-          {" "}में प्रोडक्ट डिज़ाइन इंटर्न के रूप में जुड़ रहा हूं। अभी मैं
-          UPenn में इंटीग्रेटेड प्रोडक्ट डिज़ाइन में अपनी मास्टर्स पूरी कर रहा
-          हूं। इससे पहले मैंने C+A Global में <It>HP</It>, <It>Kodak</It>, और{" "}
-          <It>Saris</It> जैसे ब्रांड्स के लिए डिज़ाइन किया। मैंने Rutgers में{" "}
-          <It>Creative X</It> की भी स्थापना की, छात्र क्रिएटिव्स के लिए एक
-          डिज़ाइन कम्युनिटी। साथ ही मैं कपड़ों के ब्रांड्स, डांस स्टूडियो, लेखकों,
-          और गैर-लाभकारी संस्थाओं के लिए कंसल्टिंग करता हूं।
-        </p>
-      </BlurFadeIn>
-
-      <BlurFadeIn delay={160}>
-        <p className="bio-paragraph mt-4">
-          काम के बाहर मुझे पावरलिफ्टिंग, इतिहास और भाषाएं सीखने में रुचि है।
-        </p>
-      </BlurFadeIn>
-
-      <BlurFadeIn delay={240}>
-        <Socials />
-      </BlurFadeIn>
-    </>
   );
 }
 
@@ -109,21 +46,39 @@ function Socials() {
   );
 }
 
-type HeroProps = {
-  lang: Lang;
-};
-
-export default function Hero({ lang }: HeroProps) {
-  const name = lang === "EN" ? "Samir Patki" : "समीर पतकी";
-  const role = lang === "EN" ? "Design Engineer" : "डिज़ाइन इंजीनियर";
-
+export default function Hero() {
   return (
     <section className="mx-auto w-full max-w-[960px] px-6 pt-14 md:px-8 md:pt-20">
       <BlurFadeIn delay={0}>
-        <h1 className="hero-name">{name}</h1>
-        <p style={{ marginTop: "2px" }}>{role}</p>
+        <h1 className="hero-name">Samir Patki</h1>
+        <p style={{ marginTop: "2px" }}>Design Engineer</p>
       </BlurFadeIn>
-      {lang === "EN" ? <BioEn /> : <BioHi />}
+
+      <BlurFadeIn delay={80}>
+        <p className="bio-paragraph mt-6">
+          I&apos;m a designer and developer based in New York. This summer
+          I&apos;m joining{" "}
+          <It>The New York Times</It>
+          {" "}as a Product Design Intern. Right now I&apos;m finishing my
+          Master&apos;s in Integrated Product Design at UPenn. Before this I
+          designed for brands such as <It>HP</It>, <It>Kodak</It>, and{" "}
+          <It>Saris</It> at C+A Global. I also founded{" "}
+          <It>Creative X</It> at Rutgers, a design community for student
+          creatives. On the side I consult for clothing brands, dance studios,
+          authors, and non-profits.
+        </p>
+      </BlurFadeIn>
+
+      <BlurFadeIn delay={160}>
+        <p className="bio-paragraph mt-4">
+          Outside of work I&apos;m interested in powerlifting, history and
+          learning languages.
+        </p>
+      </BlurFadeIn>
+
+      <BlurFadeIn delay={240}>
+        <Socials />
+      </BlurFadeIn>
     </section>
   );
 }

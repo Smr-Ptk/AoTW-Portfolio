@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SOCIALS, TICKER_STRINGS } from "@/lib/constants";
-import type { Lang } from "@/app/page";
 
 const RENDERED_MS = 187;
 const COUNT_DURATION_MS = 1200;
@@ -20,21 +19,6 @@ function resolveTicker(template: string) {
     .replace("{commit}", DEV_TICKER_VALUES.commit);
 }
 
-const DEVANAGARI_DIGITS = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"];
-
-function toDevanagariNumerals(input: string | number) {
-  return String(input)
-    .split("")
-    .map((ch) => {
-      const code = ch.charCodeAt(0);
-      if (code >= 48 && code <= 57) return DEVANAGARI_DIGITS[code - 48];
-      return ch;
-    })
-    .join("");
-}
-
-// cubic-bezier(0.16, 1, 0.3, 1) — same easing curve as --ease-out-expo,
-// expressed as a closed-form approximation for the count animation.
 function easeOutExpo(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
@@ -94,12 +78,7 @@ function RenderedCounter({ reducedMotion }: RenderedCounterProps) {
   );
 }
 
-type FooterProps = {
-  lang: Lang;
-  onLangChange: (lang: Lang) => void;
-};
-
-export default function Footer({ lang, onLangChange }: FooterProps) {
+export default function Footer() {
   const [tickerIdx, setTickerIdx] = useState<number | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -119,11 +98,6 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
 
   const isRenderedVariant =
     tickerIdx !== null && TICKER_STRINGS[tickerIdx].startsWith("Rendered in");
-
-  const copyright =
-    lang === "हि"
-      ? `© ${toDevanagariNumerals(2026)} समीर पतकी`
-      : "© 2026 Samir Patki";
 
   return (
     <footer className="mx-auto mt-32 w-full max-w-[960px] px-6 pb-20 md:px-8">
@@ -155,7 +129,7 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
 
       <p className="mt-6 font-mono text-[13px] text-[var(--ink-soft)]">
         {tickerIdx === null ? (
-          "\u00A0"
+          " "
         ) : isRenderedVariant ? (
           <RenderedCounter reducedMotion={reducedMotion} />
         ) : (
@@ -163,24 +137,8 @@ export default function Footer({ lang, onLangChange }: FooterProps) {
         )}
       </p>
 
-      <div className="mt-6 flex flex-col items-start gap-2 text-[13px] text-[var(--ink-soft)] sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-        <div className="flex items-center gap-3 font-mono">
-          <button
-            type="button"
-            onClick={() => onLangChange("EN")}
-            className={`cursor-pointer bg-transparent p-0 ${lang === "EN" ? "underline underline-offset-4" : ""}`}
-          >
-            EN
-          </button>
-          <button
-            type="button"
-            onClick={() => onLangChange("हि")}
-            className={`cursor-pointer bg-transparent p-0 ${lang === "हि" ? "underline underline-offset-4" : ""}`}
-          >
-            हि
-          </button>
-        </div>
-        <p>{copyright}</p>
+      <div className="mt-6 flex items-end justify-end text-[13px] text-[var(--ink-soft)]">
+        <p className="font-mono">© 2026 Samir Patki</p>
       </div>
     </footer>
   );
